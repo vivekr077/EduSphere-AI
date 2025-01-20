@@ -1,4 +1,4 @@
-import { GenerateStudyTypeContentAiModel } from "@/configs/AiModel";
+import { GenerateQuizAiModel, GenerateStudyTypeContentAiModel } from "@/configs/AiModel";
 import { db } from "@/configs/db";
 import { STUDY_TYPE_CONTENT_TABLE } from "@/configs/schema";
 import { inngest } from "@/inngest/client";
@@ -7,12 +7,15 @@ import { NextResponse } from "next/server";
 
 export async function POST(req) {
       const {chapters, courseId , type} = await req.json();
-      const PROMPT = 'Generate the flashcard on topic : '+chapters+' Fundamentals, User Interface (UI) Development,Basic App Navigation in JSON format with front back content, Maximum 15'
-      // console.log("hii");
-      // console.log("chapters is: ", chapters);
-      // console.log("courseId is: ", courseId);
-      // console.log("type is: ", type);
-      // console.log("prompt is: ", PROMPT);
+      const PROMPT = type=='Flashcard' ?
+                     'Generate the flashcard on topic : '+chapters+' Fundamentals, User Interface (UI) Development,Basic App Navigation in JSON format with front back content, Maximum 15' :
+                     'Generate Quiz on topic : '+chapters+' with Question and Options along with correct answer in JSON format, (Max 10)'
+
+      console.log("hii");
+      console.log("chapters is: ", chapters);
+      console.log("courseId is: ", courseId);
+      console.log("type is: ", type);
+      console.log("prompt is: ", PROMPT);
        
       // insert Record to DB, update status to Generating...
       const result = await db.insert(STUDY_TYPE_CONTENT_TABLE).values({
@@ -31,8 +34,7 @@ export async function POST(req) {
       //       recordId: result[0].id
       //   }
       // })
-      const result1 = await GenerateStudyTypeContentAiModel.sendMessage(PROMPT);
-      console.log("hiiii");
+      const result1 = type=='Flashcard' ? await GenerateStudyTypeContentAiModel.sendMessage(PROMPT) : await GenerateQuizAiModel.sendMessage(PROMPT);
       const aiResult = result1?.response?.text(); 
       console.log("aiResult is: ", aiResult);
            

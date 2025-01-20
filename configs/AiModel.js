@@ -88,7 +88,7 @@ export const GenerateStudyTypeContentAiModel = model.startChat({
       ],
     });
 
-    const GenerateQuizAiModel = model.startChat({
+export const GenerateQuizAiModel = model.startChat({
       generationConfig2,
       history: [
         {

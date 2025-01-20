@@ -18,21 +18,21 @@ const StudyMaterialSection = ({courseId, course}) => {
             desc: 'Flashcard to revise the concepts',
             icon: '/flashcard.png',
             path: '/flashcards',
-            type: 'flashCard'
+            type: 'Flashcard'
          },
          {
             name: 'Quiz',
             desc: 'Great way to test your knowledge',
             icon: '/quiz.png',
             path: '/quiz',
-            type: 'quiz'
+            type: 'Quiz'
          },
          {
             name: 'Question/Answer',
             desc: 'Help to practice your learning',
             icon: '/qa.png',
             path: '/qa',
-            type: 'quiz'
+            type: 'qa'
          },
          
         ]

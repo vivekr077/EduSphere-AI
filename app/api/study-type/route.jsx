@@ -12,14 +12,14 @@ export async function POST(req){
 
         // Get All the other Study Type Records
         const contentList = await db.select().from(STUDY_TYPE_CONTENT_TABLE)
-        .where(eq(STUDY_TYPE_CONTENT_TABLE)?.courseId, courseId);
+        .where(eq(STUDY_TYPE_CONTENT_TABLE?.courseId, courseId));
         const result = {
-            notes: notes,
-            flashCard: contentList?.find(item=>item.type=='Flashcard'),
-            quiz: null,
-            qa: null,
+            notes:  notes,
+            Flashcard: contentList?.filter(item => item.type == 'Flashcard') ,
+            Quiz: contentList?.filter(item => item.type == 'Quiz'),
+            qa: [],
         }
-        console.log("content list inside study-type / route is: ", result.flashCard);
+        console.log("content list inside study-type / route is: ", result);
         
         return NextResponse.json(result)
     } 
@@ -31,8 +31,11 @@ export async function POST(req){
     }
     else{
         const result = await db.select().from(STUDY_TYPE_CONTENT_TABLE)
-        .where(and(eq(STUDY_TYPE_CONTENT_TABLE?.courseId, courseId)),
-        (eq(STUDY_TYPE_CONTENT_TABLE.type, studyType)));
+        .where(
+            and(
+                eq(STUDY_TYPE_CONTENT_TABLE?.courseId, courseId),
+                eq(STUDY_TYPE_CONTENT_TABLE.type, studyType),
+            ));
 
         return NextResponse.json(result[0])
     }

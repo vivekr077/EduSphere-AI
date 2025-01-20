@@ -97,6 +97,12 @@ export const GenerateStudyTypeContent = inngest.createFunction (
   async({event, step})=>{
       const {studyType, prompt, courseId} =  event.data;
 
+      let obj = [
+        {
+          "hey" : "bhai"
+        }
+      ]
+      
       const FlashCardAiResult = await step.run('Generating Flashcard using AI', async()=>{
           //  const result = await GenerateStudyTypeContentAiModel.sendMessage(prompt);
           //  const aiResult = result.response.text();
