@@ -1,10 +1,14 @@
-import React from "react";
+"use client"
+import React, { useState } from "react";
 import SideBar from "./_components/SideBar";
 import DashboardHeader from "./_components/DashboardHeader";
 import WelcomeBanner from "./_components/WelcomeBanner";
+import { CourseCountContext } from "../_context/CourseCountContext";
 
 const DashboardLayout = ({ children }) => {
+  const [totalCourse, setTotalCourse] = useState(0);
   return (
+    <CourseCountContext.Provider value={{totalCourse, setTotalCourse}}  >
     <div>
         <div  className='md:w-64 hidden md:block fixed'>
             <SideBar/>
@@ -15,8 +19,8 @@ const DashboardLayout = ({ children }) => {
                 {children}
             </div>
         </div>
-
     </div>
+    </CourseCountContext.Provider>
   );
 };
 

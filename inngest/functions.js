@@ -4,14 +4,6 @@ import { CHAPTER_NOTES_TABLE, STUDY_MATERIAL_TABLE, STUDY_TYPE_CONTENT_TABLE, US
 import { eq } from "drizzle-orm";
 import { generateNotesAIModal, GenerateStudyTypeContentAiModel } from "@/configs/AiModel";
 
-export const helloWorld = inngest.createFunction(
-  { id: "hello-world" },
-  { event: "test/hello.world" },
-  async ({ event, step }) => {
-    await step.sleep("wait-a-moment", "1s");
-    return { message: `Hello ${event.data.email}!` };
-  }
-);
 
 export const CreateNewUser = inngest.createFunction(
   { id: "create-user" },
