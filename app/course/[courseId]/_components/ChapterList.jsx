@@ -4,7 +4,7 @@ const ChapterList = ({ course }) => {
     const Chapters = course?.courseLayout?.chapters;
     console.log("chapters are:" , Chapters);
     
-  return (
+  return  ( 
     <div className='mt-5'>
          <h2 className='font-medium text-xl'>Chapters</h2>
 

@@ -5,6 +5,7 @@ import Link from 'next/link';
 
 const StudyMaterialSection = ({courseId, course}) => {
    const [studyTypeContent, setStudyTypeContent] = useState();
+   const [loading, setLoading] = useState(true)
    const MaterialList = [
          {
             name: 'Notes/Chapters',
@@ -42,25 +43,35 @@ const StudyMaterialSection = ({courseId, course}) => {
    },[])
 
    const GetStudyMaterial = async ()=>{
+       setLoading(true);
        const result = await axios.post('/api/study-type',{
          courseId: courseId,
          studyType: 'ALL'
        });
        console.log("finalyyy reault is: ", result?.data)
-       setStudyTypeContent(result?.data)
+       setStudyTypeContent(result?.data);
+       setLoading(false)
    }
   return (
     <div>
         <h2 className='font-medium text-xl mt-3'>Study Material</h2>
 
         <div className='grid grid-cols-2 md:grid-cols-4 gap-5 mt-3'>
-            {MaterialList.map((item,index)=>(               
+            {
+               loading==true?
+               [1,2,3,4].map((item, index)=>(
+                 <div key={index} className='h-56 w-full bg-slate-200 rounded-lg animate-pulse'></div>
+              ))
+                :
+                <>
+                {MaterialList.map((item,index)=>(               
                 <MaterialCardItem item={item} key={index}
                   studyTypeContent = {studyTypeContent}
                   course ={course}
                   refreshData={GetStudyMaterial}
                 />    
-            ))}
+            ))} </>
+            }
         </div>
     </div>
   )
