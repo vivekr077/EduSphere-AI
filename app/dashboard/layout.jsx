@@ -6,7 +6,7 @@ import WelcomeBanner from "./_components/WelcomeBanner";
 import { CourseCountContext } from "../_context/CourseCountContext";
 
 const DashboardLayout = ({ children }) => {
-  const [totalCourse, setTotalCourse] = useState(5);
+  const [totalCourse, setTotalCourse] = useState(0);
   return (
     <CourseCountContext.Provider value={{totalCourse, setTotalCourse}}  >
     <div>
