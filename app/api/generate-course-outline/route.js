@@ -12,7 +12,7 @@ export async function POST(req) {
     // Generate Course Layout 
      const aiRes = await courseOutlineAIModal.sendMessage(PROMPT);
      const aiResult =  aiRes.response.text();
-     const cleanResponse = aiResult.replace(/```json\n|\n```/g, "").trim();
+     const cleanResponse = aiResult.replace(/```(?:json)?/gi, "").replace(/```/g, "").trim();
      const parsedData = JSON.parse(cleanResponse);
      
     // Save the result along with user input

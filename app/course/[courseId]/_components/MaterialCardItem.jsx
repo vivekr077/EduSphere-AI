@@ -11,9 +11,9 @@ const MaterialCardItem = ({ item, studyTypeContent, course, refreshData }) => {
   // console.log("studyTypeContent is: ", studyTypeContent);
   // console.log("item.type is: ", item.type)
   const [loading, setLoading] = useState(false);
-  
+
   const generateContent = async () => {
-    toast('Generating your content...')
+    toast("Generating your content...");
     setLoading(true);
     // console.log(course);
     let chapters = "";
@@ -30,18 +30,18 @@ const MaterialCardItem = ({ item, studyTypeContent, course, refreshData }) => {
     // console.log("item are: ", item);
     // console.log("refresh data is: ", refreshData);
     // console.log("length is:");
-    
+
     // console.log("length is: ", studyTypeContent?.[item.type]?.length);
 
     // console.log("final result : ", result);
-     refreshData(true);
-     toast('Your content is ready to use')
+    refreshData(true);
+    toast("Your content is ready to use");
   };
 
   return (
     <div
       className={`border shadow-md rounded-lg p-5 flex flex-col items-center
-      ${(studyTypeContent?.[item?.type]?.length==0) && "grayscale"}
+      ${studyTypeContent?.[item?.type]?.length == 0 && "grayscale"}
       `}
     >
       {studyTypeContent?.[item.type]?.length == 0 ? (
@@ -58,13 +58,29 @@ const MaterialCardItem = ({ item, studyTypeContent, course, refreshData }) => {
       <h2 className="font-medium mt-3">{item.name}</h2>
       <p className="text-gray-500 text-sm text-center">{item.desc}</p>
 
-      {studyTypeContent?.[item.type]?.length == 0 ? (
+      {item.type === "notes" ? (
+        // Special case for notes
+        studyTypeContent?.notes?.length > 0 ? (
+          <div className="w-full">
+            <Link href={"/course/" + course?.courseId + item?.path}>
+              <Button className="mt-3 w-full" variant="outline">
+                View
+              </Button>
+            </Link>
+          </div>
+        ) : (
+          <Button className="mt-3 w-full" variant="outline" disabled>
+            generating...
+          </Button>
+        )
+      ) : // For other study types
+      studyTypeContent?.[item.type]?.length === 0 ? (
         <Button
           className="mt-3 w-full"
           variant="outline"
           onClick={() => generateContent()}
         >
-          {loading && <RefreshCcw className=" animate-spin" />}
+          {loading && <RefreshCcw className="animate-spin" />}
           Generate
         </Button>
       ) : (
