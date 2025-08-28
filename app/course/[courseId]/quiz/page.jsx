@@ -4,6 +4,9 @@ import { useParams } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import StepProgress from '../_components/StepProgress'
 import QuizCardItem from './_components/QuizCardItem'
+import { Button } from '@/components/ui/button';
+import { ArrowLeft } from 'lucide-react';
+import Link from 'next/link';
 
 const Quiz = () => { 
   const { courseId } = useParams();
@@ -43,6 +46,16 @@ const Quiz = () => {
     
   return (
     <div>
+        {/* Back to Course Button */}
+        <div className='mb-6'>
+            <Link href={`/course/${courseId}`}>
+                <Button variant='outline' className='flex items-center gap-2'>
+                    <ArrowLeft className='h-4 w-4' />
+                    Back to Course
+                </Button>
+            </Link>
+        </div>
+
         <h2 className='font-bold text-2xl text-center mb-4'>Quiz</h2>
         <StepProgress data={quiz} stepCount={stepCount} setStepCount={setStepCount}/>
 

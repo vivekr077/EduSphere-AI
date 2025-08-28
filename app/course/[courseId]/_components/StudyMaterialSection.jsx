@@ -42,6 +42,18 @@ const StudyMaterialSection = ({courseId, course}) => {
       GetStudyMaterial();
    },[])
 
+   // Auto-refresh until at least one note exists so View enables automatically
+   useEffect(()=>{
+      if (!studyTypeContent) return;
+      const notesCount = Array.isArray(studyTypeContent?.notes) ? studyTypeContent.notes.length : 0;
+      if (notesCount === 0) {
+        const id = setInterval(()=>{
+          GetStudyMaterial();
+        }, 4000)
+        return ()=> clearInterval(id)
+      }
+   }, [studyTypeContent])
+
    const GetStudyMaterial = async ()=>{
        setLoading(true);
        const result = await axios.post('/api/study-type',{

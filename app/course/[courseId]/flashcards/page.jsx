@@ -3,6 +3,9 @@ import axios  from 'axios';
 import { useParams } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import FlashCardItem from './_components/FlashCardItem';
+import { Button } from '@/components/ui/button';
+import { ArrowLeft } from 'lucide-react';
+import Link from 'next/link';
 import {
   Carousel,
   CarouselContent,
@@ -21,7 +24,6 @@ const Flashcard = () => {
   useEffect(()=>{
       GetFlashCards();
   },[])
-
   useEffect(()=>{
        if(!api) 
        {
@@ -46,6 +48,16 @@ const Flashcard = () => {
 
   return (
     <div>
+       {/* Back to Course Button */}
+       <div className='mb-6'>
+           <Link href={`/course/${courseId}`}>
+               <Button variant='outline' className='flex items-center gap-2'>
+                   <ArrowLeft className='h-4 w-4' />
+                   Back to Course
+               </Button>
+           </Link>
+       </div>
+
        <h2 className='font-bold text-2xl'>
           Flashcard
        </h2>

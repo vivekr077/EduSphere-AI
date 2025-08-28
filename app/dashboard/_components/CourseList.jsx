@@ -34,16 +34,24 @@ const CourseList = () => {
             className='border-primary text-primary'><RefreshCw />Refresh</Button>
           </h2>
           
-
-          <div className='grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 mt-2 gap-5'>
-              {loading==false ? courseList?.map((course, idx)=>(
-                  <CourseCardItem  course={course} key={idx}/>
-              )) : 
-              [1,2,3,4,5,6].map((item, index)=>(
-                 <div key={index} className='h-56 w-full bg-slate-200 rounded-lg animate-pulse'></div>
-              ))
-              }
-          </div>
+          {loading ? (
+            <div className='grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 mt-2 gap-5'>
+              {[1,2,3,4,5,6].map((item, index)=>(
+                <div key={index} className='h-56 w-full bg-slate-200 rounded-lg animate-pulse'></div>
+              ))}
+            </div>
+          ) : courseList?.length ? (
+            <div className='grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 mt-2 gap-5'>
+              {courseList.map((course, idx)=>(
+                <CourseCardItem  course={course} key={idx}/>
+              ))}
+            </div>
+          ) : (
+            <div className='mt-8 border border-dashed rounded-lg p-10 text-center bg-slate-50'>
+              <h3 className='text-lg font-semibold'>No courses yet</h3>
+              <p className='text-gray-600 mt-1'>Create your first personalized study material to get started.</p>
+            </div>
+          )}
     </div>
   )
 }

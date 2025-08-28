@@ -21,7 +21,8 @@ export async function POST(req) {
         courseType: courseType,
         createdBy: createdBy,
         topic: topic,
-        courseLayout: parsedData
+        courseLayout: parsedData,
+        createdAt: new Date()
     }).returning({res: STUDY_MATERIAL_TABLE})
 
     // Trigger the Inngest function to genetrate chapter notes

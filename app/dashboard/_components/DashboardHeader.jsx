@@ -10,7 +10,7 @@ const DashboardHeader = () => {
   const route = useRouter();
   return (
     <div className='p-5 shadow-md flex justify-between'>
-        <div className='flex gap-2 items-center'>
+        <div className='flex gap-2 items-center cursor-pointer' onClick={()=>route.push('/dashboard')}>
                          <Image src={'/logo.svg'} alt='logo' width={40} height={40}/>
                          <h2 className='font-bold text-large'>EduSphere-AI</h2>
                      </div>

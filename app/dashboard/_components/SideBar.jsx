@@ -39,11 +39,24 @@ const SideBar = () => {
   const [userDetails, setUserDetails] = useState();
 
   const handleCreateCourse = () => {
-    if (totalCourse <= 4 || userDetails?.isMember) {
-       route.push('/create')
-    } else{
+    const planType = userDetails?.planType || 'free';
+    const isMonthly = userDetails?.isMember && planType === 'monthly';
+    const isYearly = userDetails?.isMember && planType === 'yearly';
+
+    // Limits
+    const freeLimit = 5;
+    const monthlyLimit = 100;
+    const yearlyUnlimited = true;
+
+    if (isYearly || (isMonthly && totalCourse < monthlyLimit) || (!userDetails?.isMember && totalCourse < freeLimit)) {
+      route.push('/create')
+    } else {
       route.push('/dashboard/upgrade')
-      toast.error("Please upgrade your plan! Your Free Credit Limit reached")
+      if (!userDetails?.isMember) {
+        toast.error("Please upgrade your plan! Your Free Credit Limit reached")
+      } else if (isMonthly) {
+        toast.error("Monthly plan credit limit (100) reached. Upgrade to Yearly for unlimited access.")
+      }
     }
   };
 
@@ -95,10 +108,22 @@ const SideBar = () => {
       {userDetails?.isMember==true ? (
         <>
           <div className="border p-3 bg-slate-100 rounded-lg absolute bottom-10 w-[85%] border-yellow-500">
-            <h2 className=" text-lg text-yellow-600 mb-2">
-              Available Credits: Unlimited
-            </h2>
-            <h2 className="text-sm text-yellow-600">Total: {totalCourse} Course Generated</h2>
+            {userDetails?.planType === 'monthly' ? (
+              <>
+                <h2 className=" text-lg text-yellow-600 mb-2">
+                  Available Credits: {Math.max(0, 100 - (totalCourse || 0))}
+                </h2>
+                <Progress value={Math.min(100, ((totalCourse || 0) / 100) * 100)} />
+                <h2 className="text-sm text-yellow-600">{totalCourse || 0} Out of 100 Credits Used</h2>
+              </>
+            ) : (
+              <>
+                <h2 className=" text-lg text-yellow-600 mb-2">
+                  Available Credits: Unlimited
+                </h2>
+                <h2 className="text-sm text-yellow-600">Total: {totalCourse} Course Generated</h2>
+              </>
+            )}
           </div>
         </>
       ) : (

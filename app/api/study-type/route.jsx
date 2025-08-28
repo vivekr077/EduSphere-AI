@@ -17,7 +17,7 @@ export async function POST(req){
             notes:  notes,
             Flashcard: contentList?.filter(item => item.type == 'Flashcard') ,
             Quiz: contentList?.filter(item => item.type == 'Quiz'),
-            qa: [],
+            qa: contentList?.filter(item => item.type == 'qa'),
         }
         console.log("content list inside study-type / route is: ", result);
         

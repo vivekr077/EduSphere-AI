@@ -7,9 +7,11 @@ import { NextResponse } from "next/server";
 
 export async function POST(req) {
       const {chapters, courseId , type} = await req.json();
-      const PROMPT = type=='Flashcard' ?
-                     'Generate the flashcard on topic : '+chapters+' Fundamentals, User Interface (UI) Development,Basic App Navigation in JSON format with front back content, Maximum 15' :
-                     'Generate Quiz on topic : '+chapters+' with Question and Options along with correct answer in JSON format, (Max 10)'
+      const PROMPT = type==='Flashcard' ?
+                     'Generate up to 15 flashcards for topics: '+chapters+'. JSON array with {"front":"term or question","back":"short answer"}.' :
+                     (type==='qa' ?
+                       'Generate 15 question-answer pairs for topics: '+chapters+'. JSON array of {"question":"...","answer":"..."}. Keep answers concise and clear.' :
+                       'Generate up to 10 multiple-choice quiz questions for topics: '+chapters+'. JSON array of {"question":"...","options":["A","B","C","D"],"answer":"one of options"}.')
 
       // console.log("hii");
       // console.log("chapters is: ", chapters);
@@ -34,7 +36,7 @@ export async function POST(req) {
       //       recordId: result[0].id
       //   }
       // })
-      const result1 = type=='Flashcard' ? await GenerateStudyTypeContentAiModel.sendMessage(PROMPT) : await GenerateQuizAiModel.sendMessage(PROMPT);
+      const result1 = type==='Flashcard' || type==='qa' ? await GenerateStudyTypeContentAiModel.sendMessage(PROMPT) : await GenerateQuizAiModel.sendMessage(PROMPT);
       const aiResult = result1?.response?.text(); 
       console.log("aiResult is: ", aiResult);
            
