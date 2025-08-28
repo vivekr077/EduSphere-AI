@@ -5,7 +5,7 @@ import React from 'react'
 const CourseIntroCard = ({course}) => {
   return (
     <div className='flex gap-5 item-center p-10 max-sm:p-4 border shadow-md rounded-lg'>
-       <Image src={'/knowledge.png'} alt='other' className=' max-sm:hidden' width={70} height={70}/>
+       <Image src={'/knowledge.png'} alt='other' width={70} height={70} className=' max-sm:hidden'/>
        <div>
          <h2 className='font-bold text-2xl max-sm:text-xl'>{course?.courseLayout?.course_title}</h2>
          <p className='line-clamp-2'>{course?.courseLayout?.course_summary}</p>

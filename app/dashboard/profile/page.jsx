@@ -37,7 +37,7 @@ const ProfilePage = () => {
     : (planType === 'monthly' ? Math.max(0, monthlyLimit - creditsUsed) : 'Unlimited')
 
   return (
-    <div className='p-6'>
+    <div className='p-6 max-sm:p-0'>
       {/* Header */}
       <div className='relative overflow-hidden rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white'>
         <div className='p-6 md:p-8 flex items-center gap-4 md:gap-6'>

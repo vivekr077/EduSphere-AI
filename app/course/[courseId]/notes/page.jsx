@@ -55,7 +55,7 @@ const ViewNotes = () => {
 
         {!notes || notes.length===0 ? (
           <div className='text-sm text-gray-600 mt-6'>
-            Generating notes... You can check back in a few seconds.
+            Generating notes... You can check back in a few seconds if total chapters is less than 7.
           </div>
         ) : (
           <div className='flex gap-5 max-sm:gap-3 items-center'>

@@ -38,35 +38,15 @@ const MaterialCardItem = ({ item, studyTypeContent, course, refreshData }) => {
      toast('Your content is ready to use')
   };
 
-  const isNotes = item?.type === 'notes';
-  const notesCount = Array.isArray(studyTypeContent?.notes) ? studyTypeContent.notes.length : 0;
-  const genericArray = Array.isArray(studyTypeContent?.[item?.type]) ? studyTypeContent[item.type] : [];
-  const hasReadyGeneric = Array.isArray(genericArray) && genericArray.some(r => r?.status === 'Ready' && r?.content);
-  const genericCount = genericArray.length;
-  const contentCount = isNotes ? notesCount : (hasReadyGeneric ? genericCount : 0);
-  const totalChapters = Array.isArray(course?.courseLayout?.chapters) ? course.courseLayout.chapters.length : 0;
-
-  // Prevent parallel generation across types
-  const notesGenerating = totalChapters > 0 && notesCount < totalChapters; // includes 0
-  const flashArr = Array.isArray(studyTypeContent?.Flashcard) ? studyTypeContent.Flashcard : [];
-  const quizArr = Array.isArray(studyTypeContent?.Quiz) ? studyTypeContent.Quiz : [];
-  const qaArr = Array.isArray(studyTypeContent?.qa) ? studyTypeContent.qa : [];
-  const flashGenerating = flashArr.some(r => r?.status && r.status !== 'Ready');
-  const quizGenerating = quizArr.some(r => r?.status && r.status !== 'Ready');
-  const qaGenerating = qaArr.some(r => r?.status && r.status !== 'Ready');
-  const anyGenerating = notesGenerating || flashGenerating || quizGenerating || qaGenerating;
-
-  
-
   return (
     <div
       className={`border shadow-md rounded-lg p-5 flex flex-col items-center
-      ${isNotes ? (notesCount===0 ? "grayscale" : "") : (!hasReadyGeneric ? "grayscale" : "")}
+      ${(studyTypeContent?.[item?.type]?.length==0) && "grayscale"}
       `}
     >
-      {contentCount == 0 ? (
+      {studyTypeContent?.[item.type]?.length == 0 ? (
         <h2 className="p-1 px-2 bg-gray-500 text-white rounded-full text-[10px] mb-2">
-          {isNotes ? 'Generating' : 'Generate'}
+          Generate
         </h2>
       ) : (
         <h2 className="p-1 px-2 bg-green-500 text-white rounded-full text-[10px] mb-2">
@@ -78,53 +58,23 @@ const MaterialCardItem = ({ item, studyTypeContent, course, refreshData }) => {
       <h2 className="font-medium mt-3">{item.name}</h2>
       <p className="text-gray-500 text-sm text-center">{item.desc}</p>
 
-      {isNotes ? (
-        contentCount === 0 ? (
-          <div className="w-full text-center text-xs text-gray-500 mt-3">
-            Notes are generating. Please check again in a minute.
-          </div>
-        ) : (
-          <div className="w-full">
-            <Link href={"/course/" + course?.courseId + item?.path}>
-              <Button className="mt-3 w-full" variant="outline">
-                View
-              </Button>
-            </Link>
-            {contentCount < totalChapters && (
-              <div className="w-full text-center text-xs text-gray-500 mt-2">
-                More notes are generating. Please check again in about a minute for all pages.
-              </div>
-            )}
-          </div>
-        )
+      {studyTypeContent?.[item.type]?.length == 0 ? (
+        <Button
+          className="mt-3 w-full"
+          variant="outline"
+          onClick={() => generateContent()}
+        >
+          {loading && <RefreshCcw className=" animate-spin" />}
+          Generate
+        </Button>
       ) : (
-        !hasReadyGeneric ? (
-          <Button
-            className="mt-3 w-full"
-            variant="outline"
-            onClick={() => {
-              if (anyGenerating) {
-                toast('Please wait until the current generation finishes')
-                return;
-              }
-              generateContent()
-            }}
-            disabled={anyGenerating}
-            title={anyGenerating ? 'Please wait while another item is generating' : undefined}
-            aria-disabled={anyGenerating}
-          >
-            {loading && <RefreshCcw className=" animate-spin" />}
-            {anyGenerating ? 'Please wait...' : 'Generate'}
-          </Button>
-        ) : (
-          <div className="w-full">
-            <Link href={"/course/" + course?.courseId + item?.path}>
-              <Button className="mt-3 w-full" variant="outline">
-                View
-              </Button>
-            </Link>
-          </div>
-        )
+        <div className="w-full">
+          <Link href={"/course/" + course?.courseId + item?.path}>
+            <Button className="mt-3 w-full" variant="outline">
+              View
+            </Button>
+          </Link>
+        </div>
       )}
     </div>
   );
