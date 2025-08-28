@@ -34,7 +34,7 @@ const ChapterList = ({ course }) => {
              {Chapters?.map((chapter, index)=>(
                 <div className='flex justify-between items-center p-4 shadow-md mb-2 rounded-lg' key={index}>
                     <div className='flex gap-5 items-center'>
-                      <h2 className='text-2xl'>{chapter?.emoji}</h2>
+                      <h2 className='text-2xl max-sm:hidden'>{chapter?.emoji}</h2>
                       <div>
                           <h2 className='font-medium'>{chapter?.chapter_title}</h2>
                           <p className='text-gray-400 text-sm line-clamp-2'>{chapter?.chapter_summary}</p>

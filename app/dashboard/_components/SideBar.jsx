@@ -99,6 +99,9 @@ const SideBar = () => {
               }`}
               onClick={() => {
                 route.push(menu.path);
+                if (typeof window !== 'undefined') {
+                  window.dispatchEvent(new CustomEvent('close-mobile-drawer'))
+                }
               }}
             >
               <menu.icon />
