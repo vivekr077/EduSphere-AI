@@ -58,7 +58,7 @@ const ViewNotes = () => {
             Generating notes... You can check back in a few seconds.
           </div>
         ) : (
-          <div className='flex gap-5 items-center'>
+          <div className='flex gap-5 max-sm:gap-3 items-center'>
             {stepCount!=0 && <Button variant='outline' size='sm' onClick={()=>setStepCount(stepCount-1)}>Previous</Button>}
               {notes?.map((item, index)=>(
                   <div key={index} className={`w-full h-2 rounded-full ${index<stepCount?'bg-primary':'bg-gray-200'}`}></div>

@@ -74,8 +74,8 @@ const Flashcard = () => {
                     ))
                    }
               </CarouselContent>
-              <CarouselPrevious />
-              <CarouselNext />
+              <CarouselPrevious className=' ml-4'/>
+              <CarouselNext className=' mr-4'/>
         </Carousel>
 
        </div>

@@ -28,20 +28,20 @@ const CourseList = () => {
     }
   return (
     <div className='mt-10'>
-          <h2 className='font-bold text-2xl flex justify-between items-center'>Your Study Material
+          <h2 className='font-bold text-2xl max-sm:text-xl flex justify-between items-center'>Your Study Material
           <Button variant='outline' 
             onClick={getCourseList}
-            className='border-primary text-primary'><RefreshCw />Refresh</Button>
+            className='border-primary text-primary max-sm:text-base'><RefreshCw />Refresh</Button>
           </h2>
           
           {loading ? (
-            <div className='grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 mt-2 gap-5'>
+            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-2 gap-5'>
               {[1,2,3,4,5,6].map((item, index)=>(
                 <div key={index} className='h-56 w-full bg-slate-200 rounded-lg animate-pulse'></div>
               ))}
             </div>
           ) : courseList?.length ? (
-            <div className='grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 mt-2 gap-5'>
+            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-2 gap-5'>
               {courseList.map((course, idx)=>(
                 <CourseCardItem  course={course} key={idx}/>
               ))}

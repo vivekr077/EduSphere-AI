@@ -32,11 +32,11 @@ const Quiz = () => {
     }
 
     const checkAnswer = (userAnswer, currentQuestion) => {
-        if(userAnswer==currentQuestion?.correctAnswer){
+        if(userAnswer==currentQuestion?.answer){
             setIsCorrectAns(true)
-            // setCorrectAns(currentQuestion?.correctAnswer)
         }else{
             setIsCorrectAns(false)
+            // setCorrectAns(currentQuestion?.answer)
         }       
     }
 
@@ -71,11 +71,11 @@ const Quiz = () => {
               </div>
             )}
         </div>
-          <div className=' mt-10'>
+          <div className=' mt-10 max-sm:mb-20'>
               {isCorrectAns==false&& hasQuestions && 
                 <div className='border p-3 border-red-700 bg-red-200 rounded-lg'>
                       <h2 className='font-bold text-lg text-red-600'>Incorrect 😔</h2>
-                      <p className='text-red-600'>Correct answer is: {quiz?.[stepCount]?.correctAnswer}</p>
+                      <p className='text-red-600'>Correct answer is: {quiz?.[stepCount]?.answer}</p>
               </div>}
               {isCorrectAns==true&& hasQuestions && <div>
                   <div className='border p-3 border-green-700 bg-green-200 rounded-lg'>

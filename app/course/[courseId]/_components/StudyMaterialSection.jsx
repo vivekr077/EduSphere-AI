@@ -69,7 +69,7 @@ const StudyMaterialSection = ({courseId, course}) => {
     <div>
         <h2 className='font-medium text-xl mt-3'>Study Material</h2>
 
-        <div className='grid grid-cols-2 md:grid-cols-4 gap-5 mt-3'>
+        <div className='grid max-sm:grid-cols-1 grid-cols-2 md:grid-cols-4 gap-5 mt-3'>
             {
                loading==true?
                [1,2,3,4].map((item, index)=>(
