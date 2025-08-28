@@ -80,8 +80,10 @@ const SideBar = () => {
   return (
     <div className="h-screen shadow-md p-5">
       <div className="flex gap-2 items-center">
-        <Image src={"/logo.svg"} alt="logo" width={40} height={40} />
-        <h2 className="font-bold text-large">EduSphere-AI</h2>
+         <Link href="/" className="flex items-center gap-2 cursor-pointer">
+          <Image src="/logo.svg" alt="logo" width={40} height={40} />
+          <h2 className="font-bold text-lg">EduSphere-AI</h2>
+        </Link>
       </div>
 
       <div className="mt-10">
