@@ -80,7 +80,11 @@ const SideBar = () => {
   return (
     <div className="h-screen shadow-md p-5">
       <div className="flex gap-2 items-center">
-         <Link href="/" className="flex items-center gap-2 cursor-pointer">
+         <Link href="/" className="flex items-center gap-2 cursor-pointer" onClick={()=>{
+            if (typeof window !== 'undefined') {
+              window.dispatchEvent(new CustomEvent('close-mobile-drawer'))
+            }
+         }}>
           <Image src="/logo.svg" alt="logo" width={40} height={40} />
           <h2 className="font-bold text-lg">EduSphere-AI</h2>
         </Link>

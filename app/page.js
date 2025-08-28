@@ -3,6 +3,8 @@ import { Button } from "@/components/ui/button";
 import { UserButton } from "@clerk/nextjs";
 import Image from "next/image";
 import DashboardHeader from "./dashboard/_components/DashboardHeader";
+import SideBar from "./dashboard/_components/SideBar";
+import { CourseCountContext } from "./_context/CourseCountContext";
 import { ArrowBigRight, ArrowRight, BookKeyIcon, CreativeCommonsIcon, Pencil, Brain, Zap, Clock, BookOpen, Users, Trophy, Star, CheckCircle, Play, Download, Share2 } from "lucide-react";
 import { motion } from 'framer-motion';
 import { useRouter } from "next/navigation";
@@ -17,6 +19,10 @@ export default function Home() {
   const typingSpeed = 150; // Speed of typing (ms per letter)
   const deletingSpeed = 100; // Speed of deleting (ms per letter)
   const pause = 1000; // Pause before deleting (ms)
+
+  // Mobile drawer + sidebar context for home page
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [totalCourse, setTotalCourse] = useState(0);
 
   useEffect(() => {
     const handleTyping = () => {
@@ -45,8 +51,16 @@ export default function Home() {
   }, [text, isDeleting, index]);
 
   return (
-    <>
-      <DashboardHeader />
+    <CourseCountContext.Provider value={{ totalCourse, setTotalCourse }}>
+      {mobileOpen && (
+        <div className="fixed inset-0 z-40 md:hidden">
+          <div className="absolute inset-0 bg-black/30" onClick={()=>setMobileOpen(false)}></div>
+          <div className="absolute left-0 top-0 h-full w-64 bg-white shadow-lg">
+            <SideBar />
+          </div>
+        </div>
+      )}
+      <DashboardHeader onMenuClick={()=>setMobileOpen(true)} />
       {/* main content */}
       <div className="flex justify-center bg-gradient min-h-full mt-10">
         <div className="flex flex-col items-center w-full p-6 md:p-14 lg:max-w-[1024px]">
@@ -320,6 +334,6 @@ export default function Home() {
           </footer>
         </div>
       </div>
-    </>
+    </CourseCountContext.Provider>
   );
 }
