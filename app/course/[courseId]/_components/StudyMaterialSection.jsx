@@ -42,17 +42,18 @@ const StudyMaterialSection = ({courseId, course}) => {
       GetStudyMaterial();
    },[])
 
-   // Auto-refresh until at least one note exists so View enables automatically
+   // Auto-refresh until ALL notes are ready so other Generate buttons enable automatically
    useEffect(()=>{
       if (!studyTypeContent) return;
       const notesCount = Array.isArray(studyTypeContent?.notes) ? studyTypeContent.notes.length : 0;
-      if (notesCount === 0) {
+      const totalChapters = Array.isArray(course?.courseLayout?.chapters) ? course.courseLayout.chapters.length : 0;
+      if (totalChapters && notesCount < totalChapters) {
         const id = setInterval(()=>{
           GetStudyMaterial();
         }, 4000)
         return ()=> clearInterval(id)
       }
-   }, [studyTypeContent])
+   }, [studyTypeContent, course])
 
    const GetStudyMaterial = async ()=>{
        setLoading(true);

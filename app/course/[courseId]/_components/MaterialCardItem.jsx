@@ -46,6 +46,18 @@ const MaterialCardItem = ({ item, studyTypeContent, course, refreshData }) => {
   const contentCount = isNotes ? notesCount : (hasReadyGeneric ? genericCount : 0);
   const totalChapters = Array.isArray(course?.courseLayout?.chapters) ? course.courseLayout.chapters.length : 0;
 
+  // Prevent parallel generation across types
+  const notesGenerating = totalChapters > 0 && notesCount < totalChapters; // includes 0
+  const flashArr = Array.isArray(studyTypeContent?.Flashcard) ? studyTypeContent.Flashcard : [];
+  const quizArr = Array.isArray(studyTypeContent?.Quiz) ? studyTypeContent.Quiz : [];
+  const qaArr = Array.isArray(studyTypeContent?.qa) ? studyTypeContent.qa : [];
+  const flashGenerating = flashArr.some(r => r?.status && r.status !== 'Ready');
+  const quizGenerating = quizArr.some(r => r?.status && r.status !== 'Ready');
+  const qaGenerating = qaArr.some(r => r?.status && r.status !== 'Ready');
+  const anyGenerating = notesGenerating || flashGenerating || quizGenerating || qaGenerating;
+
+  
+
   return (
     <div
       className={`border shadow-md rounded-lg p-5 flex flex-col items-center
@@ -90,10 +102,19 @@ const MaterialCardItem = ({ item, studyTypeContent, course, refreshData }) => {
           <Button
             className="mt-3 w-full"
             variant="outline"
-            onClick={() => generateContent()}
+            onClick={() => {
+              if (anyGenerating) {
+                toast('Please wait until the current generation finishes')
+                return;
+              }
+              generateContent()
+            }}
+            disabled={anyGenerating}
+            title={anyGenerating ? 'Please wait while another item is generating' : undefined}
+            aria-disabled={anyGenerating}
           >
             {loading && <RefreshCcw className=" animate-spin" />}
-            Generate
+            {anyGenerating ? 'Please wait...' : 'Generate'}
           </Button>
         ) : (
           <div className="w-full">

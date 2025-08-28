@@ -1,10 +1,10 @@
 "use client"
-import { useEffect, useState } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { CheckCircle } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 
-const PaymentSuccess = () => {
+const PaymentSuccessInner = () => {
   const router = useRouter()
   const searchParams = useSearchParams()
   const sessionId = searchParams.get('session_id')
@@ -95,4 +95,10 @@ const PaymentSuccess = () => {
   )
 }
 
-export default PaymentSuccess
+export default function PaymentSuccess() {
+  return (
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center bg-gray-50"><div className="text-gray-600">Loading payment status...</div></div>}>
+      <PaymentSuccessInner />
+    </Suspense>
+  )
+}
