@@ -6,6 +6,7 @@ import CourseCardItem from './CourseCardItem';
 import { Button } from '@/components/ui/button';
 import { RefreshCw } from 'lucide-react';
 import { CourseCountContext } from '@/app/_context/CourseCountContext';
+import Link from 'next/link';
 
 const CourseList = () => {
     const { user } = useUser();
@@ -50,6 +51,9 @@ const CourseList = () => {
             <div className='mt-8 border border-dashed rounded-lg p-10 text-center bg-slate-50'>
               <h3 className='text-lg font-semibold'>No courses yet</h3>
               <p className='text-gray-600 mt-1'>Create your first personalized study material to get started.</p>
+              <Link href='/create'>
+                <Button className='mt-4'>+ Create New</Button>
+              </Link>
             </div>
           )}
     </div>

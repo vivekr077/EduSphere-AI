@@ -123,50 +123,82 @@ const Upgrade = () => {
     };
 
   return (
-    <div className=" flex flex-col items-center justify-center px-4">
+    <div className="flex flex-col items-center justify-center px-4">
       <div className="text-center space-y-4 mb-8">
-        <h1 className="text-3xl font-bold">Plans</h1>
-        <p className="text-gray-600">Choose a plan: Free (5 credits), Monthly (100 credits), Yearly (Unlimited)</p>
+        <h1 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary to-primary dark:from-secondary dark:to-primary"> Plans & Pricing </h1>
+
+        <p className="text-muted-foreground text-lg">Choose the perfect plan for your learning journey</p>
       </div>
       
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-6xl mt-10">
         {/* Free Plan */}
-        <div className={`bg-white p-6 rounded-lg shadow-md flex flex-col items-center ${
-          !userDetails?.isMember ? 'border-2 border-green-500' : ''
+        <div className={`bg-card border-2 p-6 rounded-lg shadow-md flex flex-col items-center transition-all duration-300 ${
+          !userDetails?.isMember ? 'border-gray/60 shadow-lg' : 'border-border'
         }`}>
-          <h2 className="text-xl font-semibold">Free</h2>
-          <p className="text-4xl font-bold my-4">
-            0$ <span className="text-base font-normal">/month</span>
+          <h2 className="text-2xl font-bold text-foreground">Free</h2>
+          <p className="text-4xl font-bold my-4 text-primary">
+            $0 <span className="text-base font-normal text-muted-foreground">/month</span>
           </p>
-          <ul className="space-y-2 text-gray-700">
-            <li>&#10003; 5 PDF Upload</li>
-            <li>&#10003; Unlimited Notes Taking</li>
-            <li>&#10003; Email support</li>
-            <li>&#10003; Help center access</li>
+          <ul className="space-y-3 text-muted-foreground w-full">
+            <li className="flex items-center gap-2">
+              <span className="font-bold">✓</span>
+              <span>5 Courses Generate</span>
+            </li>
+            <li className="flex items-center gap-2">
+              <span className="font-bold">✓</span>
+              <span>Basic Features</span>
+            </li>
+            <li className="flex items-center gap-2">
+              <span className="font-bold">✓</span>
+              <span>Email Support</span>
+            </li>
+            <li className="flex items-center gap-2">
+              <span className="font-bold">✓</span>
+              <span>Community Access</span>
+            </li>
           </ul>
-          <button className={`mt-6 w-full py-2 rounded-lg ${
-            !userDetails?.isMember ? 'bg-green-500 text-white cursor-not-allowed' 
-              : 'bg-gray-200 text-gray-700 cursor-not-allowed'
+          <button className={`mt-6 w-full py-2 rounded-lg font-semibold transition-all ${
+            !userDetails?.isMember ? ' bg-gray-400 text-white border-2 border-gray-300 cursor-default' 
+              : 'bg-muted text-muted-foreground cursor-not-allowed'
           }`}>
-            {!userDetails?.isMember ? 'Current Plan' : 'Free Plan'}
+            {!userDetails?.isMember ? '✓ Current Plan' : 'Free Plan'}
           </button>
         </div>
 
         {/* Monthly Plan */}
-        <div className="bg-white p-6 rounded-lg shadow-lg flex flex-col items-center">
-          <h2 className="text-xl font-semibold">Monthly</h2>
-          <p className="text-4xl font-bold my-4">
-            9.99$ <span className="text-base font-normal">/month</span>
+        <div className="bg-card border-2 border-primary/50 p-6 rounded-lg shadow-lg flex flex-col items-center hover:shadow-xl hover:border-primary transition-all duration-300 relative overflow-hidden">
+          <span className="absolute top-3 right-3 bg-primary text-primary-foreground px-3 py-1 rounded-full text-xs font-semibold">POPULAR</span>
+          <h2 className="text-2xl font-bold text-foreground">Monthly</h2>
+          <p className="text-4xl font-bold my-4 text-primary">
+            $9.99 <span className="text-base font-normal text-muted-foreground">/month</span>
           </p>
-          <ul className="space-y-2 text-gray-700">
-            <li>&#10003; 100 Monthly Credits</li>
-            <li>&#10003; Unlimited PDF Upload</li>
-            <li>&#10003; Unlimited Notes Taking</li>
-            <li>&#10003; Email support</li>
-            <li>&#10003; Help center access</li>
+          <ul className="space-y-3 text-muted-foreground w-full">
+            <li className="flex items-center gap-2">
+              <span className="text-blue-600 font-bold">✓</span>
+              <span>100 Monthly Credits</span>
+            </li>
+            <li className="flex items-center gap-2">
+              <span className=" text-blue-600 font-bold">✓</span>
+              <span>Priority Support</span>
+            </li>
+            <li className="flex items-center gap-2">
+              <span className="text-blue-600 font-bold">✓</span>
+              <span>Advanced Features</span>
+            </li>
+            <li className="flex items-center gap-2">
+              <span className="text-blue-600 font-bold">✓</span>
+              <span>Cancel Anytime</span>
+            </li>
+             <li className="flex items-center gap-2">
+              <span className="text-blue-600 font-bold">✓</span>
+              <span>Customer Support</span>
+            </li>
           </ul>
           <button 
-            className={`mt-6 w-full py-2 rounded-lg ${getPlanButton('monthly').className}`}
+            className={`mt-6 w-full py-2 rounded-lg font-semibold transition-all ${getPlanButton('monthly').className.includes('cursor-not-allowed') 
+              ? 'bg-muted text-muted-foreground cursor-not-allowed' 
+              : 'bg-primary text-primary-foreground hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/30'
+            }`}
             onClick={getPlanButton('monthly').action}
           >
             {getPlanButton('monthly').text}
@@ -174,39 +206,41 @@ const Upgrade = () => {
         </div>
 
         {/* Yearly Plan */}
-        <div className="bg-white p-6 rounded-lg shadow-lg flex flex-col items-center border-2 border-yellow-500">
-          <h2 className="text-xl font-semibold text-yellow-600">Yearly</h2>
-          <p className="text-4xl font-bold my-4 text-yellow-600">
-            99.99$ <span className="text-base font-normal">/yearly</span>
+        <div className="bg-card border-2 border-yellow-300 p-6 rounded-lg shadow-lg flex flex-col items-center hover:shadow-xl hover:border-yellow-500 transition-all duration-300 relative overflow-hidden">
+          <span className="absolute top-3 right-3 bg-accent text-accent-foreground px-3 py-1 rounded-full text-xs font-semibold">BEST VALUE</span>
+          <h2 className="text-2xl font-bold text-foreground">Yearly</h2>
+          <p className="text-4xl font-bold my-4 text-yellow-400">
+            $99.99 <span className="text-base font-normal text-muted-foreground">/yearly</span>
           </p>
-          <ul className="space-y-2 text-gray-700">
-            <li>&#10003; Unlimited Credits</li>
-            <li>&#10003; Unlimited PDF Upload</li>
-            <li>&#10003; Unlimited Notes Taking</li>
-            <li>&#10003; Email support</li>
-            <li>&#10003; Help center access</li>
+          <p className="text-sm text-purple-500 font-semibold mb-3">Save 17% vs monthly</p>
+          <ul className="space-y-3 text-muted-foreground w-full">
+            <li className="flex items-center gap-2">
+              <span className=" text-yellow-300 font-bold">✓</span>
+              <span>Unlimited Credits</span>
+            </li>
+            <li className="flex items-center gap-2">
+              <span className=" text-yellow-300 font-bold">✓</span>
+              <span>24/7 Premium Support</span>
+            </li>
+            <li className="flex items-center gap-2">
+              <span className=" text-yellow-300 font-bold">✓</span>
+              <span>All Features Unlocked</span>
+            </li>
+            <li className="flex items-center gap-2">
+              <span className=" text-yellow-300 font-bold">✓</span>
+              <span>Priority Queue</span>
+            </li>
           </ul>
           <button 
-            className={`mt-6 w-full py-2 rounded-lg ${getPlanButton('yearly').className}`}
+            className={`mt-6 w-full py-2 rounded-lg font-semibold transition-all ${getPlanButton('yearly').className.includes('cursor-not-allowed')
+              ? 'bg-muted text-muted-foreground cursor-not-allowed'
+              : 'bg-accent text-accent-foreground hover:bg-accent hover:shadow-lg hover:shadow-accent'
+            }`}
             onClick={getPlanButton('yearly').action}
           >
             {getPlanButton('yearly').text}
           </button>
         </div>
-        {/* Current Plan Display */}
-        {/* {userDetails && (
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mt-4">
-            <h3 className="text-lg font-semibold text-blue-800">Current Plan</h3>
-            <p className="text-blue-600">
-              {userDetails.isMember ? `${userDetails.planType || 'Premium'} Plan` : 'Free Plan'}
-            </p>
-            {userDetails.isMember && (
-              <p className="text-sm text-blue-500 mt-1">
-                You have unlimited access to all features
-              </p>
-            )}
-          </div>
-        )} */}
       </div>
     </div>
   )

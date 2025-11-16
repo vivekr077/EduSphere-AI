@@ -71,7 +71,7 @@ const Quiz = () => {
               </div>
             )}
         </div>
-          <div className=' mt-10 max-sm:mb-20'>
+          <div className=' mt-10 max-sm:mb-20 mb-10'>
               {isCorrectAns==false&& hasQuestions && 
                 <div className='border p-3 border-red-700 bg-red-200 rounded-lg'>
                       <h2 className='font-bold text-lg text-red-600'>Incorrect 😔</h2>

@@ -78,7 +78,7 @@ const SideBar = () => {
   };
 
   return (
-    <div className="h-screen shadow-md p-5">
+    <div className="h-screen shadow-md p-5 bg-card border-r border-border">
       <div className="flex gap-2 items-center">
          <Link href="/" className="flex items-center gap-2 cursor-pointer" onClick={()=>{
             if (typeof window !== 'undefined') {
@@ -86,20 +86,22 @@ const SideBar = () => {
             }
          }}>
           <Image src="/logo.svg" alt="logo" width={40} height={40} />
-          <h2 className="font-bold text-lg">EduSphere-AI</h2>
+          <h2 className="font-bold text-lg text-foreground">EduSphere-AI</h2>
         </Link>
       </div>
 
       <div className="mt-10">
-        <Button className="w-full" onClick={handleCreateCourse}>
+        <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground" onClick = {handleCreateCourse}>
           + Create New
         </Button>
         <div className="mt-5">
           {MenuList.map((menu, index) => (
             <div
               key={index}
-              className={`flex gap-5 items-center p-3 hover:bg-slate-200 rounded-lg cursor-pointer mt-3 ${
-                path == menu.path && "bg-slate-200"
+              className={`flex gap-5 items-center p-3 rounded-lg cursor-pointer mt-3 transition-all duration-200 ${
+                path == menu.path 
+                  ? "bg-primary/10 text-primary border-l-2 border-primary" 
+                  : "hover:bg-secondary/20 text-foreground"
               }`}
               onClick={() => {
                 route.push(menu.path);
@@ -116,33 +118,33 @@ const SideBar = () => {
       </div>
       {userDetails?.isMember==true ? (
         <>
-          <div className="border p-3 bg-slate-100 rounded-lg absolute bottom-10 w-[85%] border-yellow-500">
+          <div className="border border-accent/30 p-3 bg-gradient-to-br from-accent/15 to-primary/10 rounded-lg absolute bottom-10 w-[85%]">
             {userDetails?.planType === 'monthly' ? (
               <>
-                <h2 className=" text-lg text-yellow-600 mb-2">
-                  Available Credits: {Math.max(0, 100 - (totalCourse || 0))}
+                <h2 className="text-lg font-semibold mb-2 text-foreground">
+                  Available Credits: <span className=" text-accent">{Math.max(0, 100 - (totalCourse || 0))} </span>
                 </h2>
                 <Progress value={Math.min(100, ((totalCourse || 0) / 100) * 100)} />
-                <h2 className="text-sm text-yellow-600">{totalCourse || 0} Out of 100 Credits Used</h2>
+                <h2 className="text-sm text-muted-foreground mt-2">{totalCourse || 0} Out of 100 Credits Used</h2>
               </>
             ) : (
               <>
-                <h2 className=" text-lg text-yellow-600 mb-2">
+                <h2 className="text-lg font-semibold mb-2 text-foreground">
                   Available Credits: Unlimited
                 </h2>
-                <h2 className="text-sm text-yellow-600">Total: {totalCourse} Course Generated</h2>
+                <h2 className="text-sm text-muted-foreground mt-2">Total: {totalCourse} Course Generated</h2>
               </>
             )}
           </div>
         </>
       ) : (
         <>
-          <div className="border p-3 bg-slate-100 rounded-lg absolute bottom-10 w-[85%]">
-            <h2 className="text-lg mb-2">
+          <div className="border border-accent/30 p-3 bg-gradient-to-br from-accent/15 to-primary/10 rounded-lg absolute bottom-10 w-[85%]">
+            <h2 className="text-lg font-semibold mb-2 text-foreground">
               Available Credits: {5 - totalCourse}
             </h2>
             <Progress value={(totalCourse / 5) * 100} />
-            <h2 className="text-sm">{totalCourse} Out of 5 Credits Used</h2>
+            <h2 className="text-sm text-muted-foreground mt-2">{totalCourse} Out of 5 Credits Used</h2>
           </div>
         </>
       )}

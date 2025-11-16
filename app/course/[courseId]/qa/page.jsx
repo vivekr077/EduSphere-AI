@@ -59,7 +59,7 @@ const QA = () => {
          <div className='mt-6 space-y-4'>
            {qa?.content?.map((item, index)=>(
               <div key={index} className='border rounded-lg p-4 bg-white shadow-sm'>
-                <p className='font-medium'>Q{index+1}. {item.question}</p>
+                <p className='font-medium text-gray-950'>Q{index+1}. {item.question}</p>
                 <p className='text-gray-700 mt-2'>{item.answer}</p>
               </div>
            ))}
