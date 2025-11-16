@@ -46,7 +46,7 @@ const ViewNotes = () => {
         {/* Back to Course Button */}
         <div className='mb-6'>
             <Link href={`/course/${courseId}`}>
-                <Button variant='outline' className='flex items-center gap-2'>
+                <Button className='flex items-center gap-2 bg-blue-600 hover:bg-blue-700 dark:bg-gray-700 dark:text-gray-100 dark:hover:bg-gray-600 text-white border-0'>
                     <ArrowLeft className='h-4 w-4' />
                     Back to Course
                 </Button>
@@ -54,26 +54,26 @@ const ViewNotes = () => {
         </div>
 
         {!notes || notes.length===0 ? (
-          <div className='text-sm light:text-gray-600 mt-6'>
+          <div className='text-sm text-gray-600 dark:text-gray-400 mt-6'>
             Generating notes... You can check back in a few seconds if total chapters is less than 7.
           </div>
         ) : (
           <div className='flex gap-5 max-sm:gap-3 items-center'>
-            {stepCount!=0 && <Button variant='outline' size='sm' onClick={()=>setStepCount(stepCount-1)}>Previous</Button>}
+            {stepCount!=0 && <Button className='bg-blue-600 hover:bg-blue-700 dark:bg-gray-700 dark:text-gray-100 dark:hover:bg-gray-600 text-white border-0' size='sm' onClick={()=>setStepCount(stepCount-1)}>Previous</Button>}
               {notes?.map((item, index)=>(
-                  <div key={index} className={`w-full h-2 rounded-full ${index<stepCount?'bg-primary':'bg-gray-200'}`}></div>
+                  <div key={index} className={`w-full h-2 rounded-full ${index<stepCount+1?'bg-blue-600 dark:bg-blue-500':'bg-gray-200 dark:bg-gray-700'}`}></div>
               ))}
-              {stepCount<notes?.length && <Button variant='outline' size='sm' onClick={()=>setStepCount(stepCount+1)}>Next</Button>}
+              {stepCount<notes?.length-1 && <Button className='bg-blue-600 hover:bg-blue-700 dark:bg-gray-700 dark:text-gray-100 dark:hover:bg-gray-600 text-white border-0' size='sm' onClick={()=>setStepCount(stepCount+1)}>Next</Button>}
           </div>
         )}
 
-        <div className='mt-10'>
+        <div className='mt-10 prose dark:prose-invert'>
             {notes && notes.length>0 && (
               <>
-                <div className='prose' dangerouslySetInnerHTML={{__html:(notes[stepCount]?.notes)?.replace('```html', "").replace('```',"")}}></div>
+                <div dangerouslySetInnerHTML={{__html:(notes[stepCount]?.notes)?.replace('```html', "").replace('```',"")}}></div>
                 {notes?.length==stepCount && <div className='flex items-center gap-10 flex-col justify-center'>
-                  <h2>End of Notes</h2>
-                  <Button onClick={()=>{route.back()}}>Go to Course Page</Button>
+                  <h2 className='dark:text-white'>End of Notes</h2>
+                  <Button onClick={()=>{route.back()}} className='bg-blue-600 hover:bg-blue-700 dark:bg-gray-700 dark:text-gray-100 dark:hover:bg-gray-600 text-white border-0'>Go to Course Page</Button>
                  </div>}
               </>
             )}

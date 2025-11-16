@@ -39,7 +39,7 @@ const ProfilePage = () => {
   return (
     <div className='p-6 max-sm:p-0'>
       {/* Header */}
-      <div className='relative overflow-hidden rounded-xl dark:bg-gradient-to-r bg-primary dark:from-primary dark:via-primary dark:to-secondary shadow-lg dark:shadow-primary/20'>
+      <div className='p-5 w-full text-white rounded-lg flex items-center gap-6 bg-primary dark:bg-gray-800 shadow-lg dark:shadow-none dark:border dark:border-gray-700'>
         <div className='p-6 md:p-8 flex items-center gap-4 md:gap-6'>
           <Image src={user?.imageUrl || '/logo.svg'} alt='avatar' width={64} height={64} className='rounded-full border-2 border-white' />
           <div>

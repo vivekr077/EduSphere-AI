@@ -52,35 +52,35 @@ const Quiz = () => {
         {/* Back to Course Button */}
         <div className='mb-6'>
             <Link href={`/course/${courseId}`}>
-                <Button variant='outline' className='flex items-center gap-2'>
+                <Button className='flex items-center gap-2 bg-blue-600 hover:bg-blue-700 dark:bg-gray-700 dark:text-gray-100 dark:hover:bg-gray-600 text-white border-0'>
                     <ArrowLeft className='h-4 w-4' />
                     Back to Course
                 </Button>
             </Link>
         </div>
 
-        <h2 className='font-bold text-2xl text-center mb-4'>Quiz</h2>
+        <h2 className='font-bold text-2xl text-center mb-4 dark:text-white'>Quiz</h2>
         <StepProgress data={quiz} stepCount={stepCount} setStepCount={setStepCount}/>
 
         <div>
             {hasQuestions ? (
               <QuizCardItem quiz={quiz[stepCount] || quiz[0]} userSelectedOption={(v)=>checkAnswer(v, quiz[stepCount] || quiz[0])}/>
             ) : (
-              <div className='text-center text-sm text-gray-600 mt-6'>
+              <div className='text-center text-sm text-gray-600 dark:text-gray-400 mt-6'>
                 Generating quiz... Please check again in a few seconds.
               </div>
             )}
         </div>
           <div className=' mt-10 max-sm:mb-20 mb-10'>
               {isCorrectAns==false&& hasQuestions && 
-                <div className='border p-3 border-red-700 bg-red-200 rounded-lg'>
-                      <h2 className='font-bold text-lg text-red-600'>Incorrect 😔</h2>
-                      <p className='text-red-600'>Correct answer is: {quiz?.[stepCount]?.answer}</p>
+                <div className='border p-3 border-red-700 dark:border-red-600 bg-red-200 dark:bg-red-900/30 rounded-lg'>
+                      <h2 className='font-bold text-lg text-red-600 dark:text-red-400'>Incorrect 😔</h2>
+                      <p className='text-red-600 dark:text-red-400'>Correct answer is: {quiz?.[stepCount]?.answer}</p>
               </div>}
               {isCorrectAns==true&& hasQuestions && <div>
-                  <div className='border p-3 border-green-700 bg-green-200 rounded-lg'>
-                      <h2 className='font-bold text-lg text-green-600'>Correct 👏</h2>
-                      <p className='text-green-600'>Your Answer is Correct</p>
+                  <div className='border p-3 border-green-700 dark:border-green-600 bg-green-200 dark:bg-green-900/30 rounded-lg'>
+                      <h2 className='font-bold text-lg text-green-600 dark:text-green-400'>Correct 👏</h2>
+                      <p className='text-green-600 dark:text-green-400'>Your Answer is Correct</p>
                   </div>
               </div>}
           </div>

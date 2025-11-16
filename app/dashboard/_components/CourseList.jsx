@@ -48,9 +48,9 @@ const CourseList = () => {
               ))}
             </div>
           ) : (
-            <div className='mt-8 border border-dashed rounded-lg p-10 text-center bg-slate-50'>
-              <h3 className='text-lg font-semibold'>No courses yet</h3>
-              <p className='text-gray-600 mt-1'>Create your first personalized study material to get started.</p>
+            <div className='mt-8 border border-dashed rounded-lg p-10 text-center bg-gray-50 dark:bg-gray-800 dark:border-gray-700'>
+              <h3 className='text-lg font-semibold dark:text-gray-100'>No courses yet</h3>
+              <p className='text-gray-600 dark:text-gray-400 mt-1'>Create your first personalized study material to get started.</p>
               <Link href='/create'>
                 <Button className='mt-4'>+ Create New</Button>
               </Link>

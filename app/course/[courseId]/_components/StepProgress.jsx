@@ -6,9 +6,9 @@ const StepProgress = ({stepCount, setStepCount, data}) => {
       <div className='flex gap-5 items-center'>
             {stepCount!=0 && <Button variant='outline' size='sm' onClick={()=>setStepCount(stepCount-1)}>Previous</Button>}
                 {data?.map((item, index)=>(
-                    <div key={index} className={`w-full h-2 rounded-full ${index<stepCount?'bg-primary':'bg-gray-200'}`}></div>
+                    <div key={index} className={`w-full h-2 rounded-full ${index<stepCount+1?'bg-primary':'bg-gray-200'}`}></div>
                 ))}
-                {stepCount<data?.length && <Button variant='outline' size='sm' onClick={()=>setStepCount(stepCount+1)}>Next</Button>}
+                {stepCount<data?.length-1 && <Button variant='outline' size='sm' onClick={()=>setStepCount(stepCount+1)}>Next</Button>}
        </div>
   )
 }

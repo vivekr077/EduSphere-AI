@@ -18,7 +18,7 @@ const DashboardLayout = ({ children }) => {
   }, [])
   return (
     <CourseCountContext.Provider value={{totalCourse, setTotalCourse}}  >
-    <div>
+    <div className="bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-colors">
         <div  className='md:w-64 hidden md:block fixed'>
             <SideBar/>
         </div>

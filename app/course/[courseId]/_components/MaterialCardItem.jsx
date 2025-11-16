@@ -40,44 +40,43 @@ const MaterialCardItem = ({ item, studyTypeContent, course, refreshData }) => {
 
   return (
     <div
-      className={`border shadow-md rounded-lg p-5 flex flex-col items-center
+      className={`border shadow-md rounded-lg p-5 flex flex-col items-center bg-white dark:bg-gray-800 dark:border-gray-700 hover:shadow-lg transition-all duration-300
       ${studyTypeContent?.[item?.type]?.length == 0 && "grayscale"}
       `}
     >
       {studyTypeContent?.[item.type]?.length == 0 ? (
-        <h2 className="p-1 px-2 bg-gray-500 text-white rounded-full text-[10px] mb-2">
+        <h2 className="p-1 px-2 bg-gray-400 dark:bg-gray-700 text-white dark:text-gray-200 rounded-full text-[10px] mb-2">
           Generate
         </h2>
       ) : (
-        <h2 className="p-1 px-2 bg-green-500 text-white rounded-full text-[10px] mb-2">
+        <h2 className="p-1 px-2 bg-green-500 dark:bg-green-900/60 text-white dark:text-green-300 rounded-full text-[10px] mb-2">
           Ready
         </h2>
       )}
 
       <Image src={item.icon} alt={item.name} width={50} height={50} />
-      <h2 className="font-medium mt-3">{item.name}</h2>
-      <p className="text-gray-500 text-sm text-center">{item.desc}</p>
+      <h2 className="font-medium mt-3 dark:text-white">{item.name}</h2>
+      <p className="text-gray-500 dark:text-gray-400 text-sm text-center">{item.desc}</p>
 
       {item.type === "notes" ? (
         // Special case for notes
         studyTypeContent?.notes?.length > 0 ? (
           <div className="w-full">
             <Link href={"/course/" + course?.courseId + item?.path}>
-              <Button className="mt-3 w-full" variant="outline">
+              <Button className="mt-3 w-full bg-blue-600 hover:bg-blue-700 dark:bg-gray-700 dark:text-gray-100 dark:hover:bg-gray-600 text-white border-0">
                 View
               </Button>
             </Link>
           </div>
         ) : (
-          <Button className="mt-3 w-full" variant="outline" disabled>
+          <Button className="mt-3 w-full bg-gray-300 dark:bg-gray-700 dark:text-gray-300 text-gray-600 border-0" disabled>
             generating...
           </Button>
         )
       ) : // For other study types
       studyTypeContent?.[item.type]?.length === 0 ? (
         <Button
-          className="mt-3 w-full"
-          variant="outline"
+          className="mt-3 w-full bg-blue-600 hover:bg-blue-700 dark:bg-gray-700 dark:text-gray-100 dark:hover:bg-gray-600 text-white border-0"
           onClick={() => generateContent()}
         >
           {loading && <RefreshCcw className="animate-spin" />}
@@ -86,7 +85,7 @@ const MaterialCardItem = ({ item, studyTypeContent, course, refreshData }) => {
       ) : (
         <div className="w-full">
           <Link href={"/course/" + course?.courseId + item?.path}>
-            <Button className="mt-3 w-full" variant="outline">
+            <Button className="mt-3 w-full bg-blue-600 hover:bg-blue-700 dark:bg-gray-700 dark:text-gray-100 dark:hover:bg-gray-600 text-white border-0">
               View
             </Button>
           </Link>

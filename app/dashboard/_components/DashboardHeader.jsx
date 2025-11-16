@@ -11,7 +11,7 @@ const DashboardHeader = ({ onMenuClick }) => {
   const {user} = useUser();
   const route = useRouter();
   return (
-    <div className='p-5 shadow-md flex justify-between items-center bg-card border-b border-border'>
+    <div className='sticky top-0 z-50 p-5 shadow-md flex justify-between items-center bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700'>
         <div className='flex gap-2 items-center'>
           <button className='md:hidden mr-2 p-2 rounded hover:bg-secondary/50 dark:hover:bg-secondary/40 transition-colors' onClick={onMenuClick} aria-label='Open menu'>
             <Menu className='h-5 w-5'/>

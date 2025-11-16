@@ -18,7 +18,7 @@ const CourseViewLayout = ({children}) => {
 
   return (
     <CourseCountContext.Provider value={{ totalCourse, setTotalCourse }}>
-      <div>
+      <div className="bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-colors min-h-screen">
         {/* Mobile Drawer */}
         {mobileOpen && (
           <div className='fixed inset-0 z-40 md:hidden'>

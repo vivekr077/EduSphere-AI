@@ -51,17 +51,17 @@ const Flashcard = () => {
        {/* Back to Course Button */}
        <div className='mb-6'>
            <Link href={`/course/${courseId}`}>
-               <Button variant='outline' className='flex items-center gap-2'>
+               <Button className='flex items-center gap-2 bg-blue-600 hover:bg-blue-700 dark:bg-gray-700 dark:text-gray-100 dark:hover:bg-gray-600 text-white border-0'>
                    <ArrowLeft className='h-4 w-4' />
                    Back to Course
                </Button>
            </Link>
        </div>
 
-       <h2 className='font-bold text-2xl'>
+       <h2 className='font-bold text-2xl dark:text-white'>
           Flashcard
        </h2>
-       <p>FlashCards: The Ultimate Tool to Lock in concepts!</p>
+       <p className='dark:text-gray-300'>FlashCards: The Ultimate Tool to Lock in concepts!</p>
        <div className='mt-10'> 
        <Carousel setApi={setApi}>
                 <CarouselContent>
@@ -74,8 +74,8 @@ const Flashcard = () => {
                     ))
                    }
               </CarouselContent>
-              <CarouselPrevious className=' ml-4'/>
-              <CarouselNext className=' mr-4'/>
+              <CarouselPrevious className='ml-4 bg-blue-600 hover:bg-blue-700 dark:bg-gray-700 dark:text-gray-100 dark:hover:bg-gray-600 border-0'/>
+              <CarouselNext className='mr-4 bg-blue-600 hover:bg-blue-700 dark:bg-gray-700 dark:text-gray-100 dark:hover:bg-gray-600 border-0'/>
         </Carousel>
 
        </div>
