@@ -1,5 +1,6 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { ThemeProviders } from "@/components/themeProvider";
 import { Outfit } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import Provider from "./provider";
@@ -18,11 +19,13 @@ const outfit = Outfit({ subsets: ["latin"] });
 export default function RootLayout({ children }) {
   return (
     <ClerkProvider>
-      <html lang="en">
+      <html lang="en" suppressHydrationWarning>
         <body className={outfit.className}>
+            <ThemeProviders>
             <Provider>
                 {children}
             </Provider>
+            </ThemeProviders>
           <Toaster />
         </body>
       </html>

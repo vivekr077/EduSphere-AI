@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import React from 'react'
 import { Menu } from 'lucide-react'
+import { ThemeToggle } from '@/components/ThemeToggle'
 
 const DashboardHeader = ({ onMenuClick }) => {
   const {user} = useUser();
@@ -20,8 +21,10 @@ const DashboardHeader = ({ onMenuClick }) => {
             <h2 className='font-bold text-large'>EduSphere-AI</h2>
           </div>
         </div>
-        
-        {user? <UserButton  className=' text-4xl'/>: <Button className=' rounded-lg' onClick={()=>{route.push('sign-in?redirect_url=http%3A%2F%2Flocalhost%3A3000%2F')}}>Sign In</Button>}
+        <div className=' flex gap-5'>
+            <ThemeToggle />
+            {user? <UserButton className=' text-4xl h-48 w-8'/>: <Button className=' rounded-lg' onClick={()=>{route.push('sign-in?redirect_url=http%3A%2F%2Flocalhost%3A3000%2F')}}>Sign In</Button>}
+        </div>
     </div>
   )
 }
