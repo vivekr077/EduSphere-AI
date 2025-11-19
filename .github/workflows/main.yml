@@ -1,0 +1,34 @@
+name: Deploy Next.js App to EC2 (Docker)
+
+on:
+  push:
+    branches: [ "master" ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Deploy to EC2 via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            cd /home/ubuntu/EduSphere-AI
+
+            echo "[1] Pulling latest code..."
+            git pull origin main
+
+            echo "[2] Rebuilding Docker images..."
+            docker compose down
+            docker compose build
+
+            echo "[3] Starting containers..."
+            docker compose up -d --force-recreate
+
+            echo "[4] Deployment completed successfully."
