@@ -1,12 +1,6 @@
 services:
   nextjs:
-    build: .
-    container_name: Edusphere-AI
+    image: vivekranjan0821/edusphere-ai:latest
     ports:
       - "3000:3000"
     restart: always
-    environment:
-      NODE_ENV: production
-      PORT: 3000
-    env_file:
-      - .env
