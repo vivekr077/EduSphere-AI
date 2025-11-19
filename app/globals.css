@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import "@clerk/themes/shadcn.css";
+
 body {
   font-family: Arial, Helvetica, sans-serif;
 }
